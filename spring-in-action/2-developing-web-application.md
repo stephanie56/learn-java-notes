@@ -50,7 +50,7 @@ GET Request -> Controller fetch data from the repository -> Controller place dat
 - On the view: the form set its method attribute to POST, and it doesn’t declare the action attribute
 - This means that when the form is submitted, the browser will gather up all the data in the form and send it to the server in an HTTP POST request to the same path for which a GET request displayed the form - the /design path
 
-```
+```java
 @PostMapping
 Public String processDesign(Design design) {
 	// save the taco design
@@ -76,25 +76,24 @@ Public String processDesign(Design design) {
 1. If the form is validated on frontend, but fails the validation on backend, is form submission is not successful, therefore we will need to check both cases
 2. Async validators on the front end
 
-```
+```java
 @Data
 Public class Taco {
+  @NotNull
+  @Size(min=5, message=“Name must be at least 5 characters long”)
+  private String name;
 
-@NotNull
-@Size(min=5, message=“Name must be at least 5 characters long”)
-private String name;
+  @Size(min=1, message=“You must choose at least 1 ingredient”)
+  private List<String> ingredients;
 
-@Size(min=1, message=“You must choose at least 1 ingredient”)
-Private List<String> ingredients;
+  @CreditCardNumber(message=“Not a valid credit card”)
+  private String ccNumber;
 
-@CreditCardNumber(message=“Not a valid credit card”)
-Private String ccNumber;
+  @Pattern(regexp=“^(0[1-9] | 1[0-2]) ([\\/]) ([1-9] [1-9])$”, message=“Must be formatted MM/YY”)
+  private String ccExpiration
 
-@Pattern(regexp=“^(0[1-9] | 1[0-2]) ([\\/]) ([1-9] [1-9])$”, message=“Must be formatted MM/YY”)
-Private String ccExpiration
-
-@Digits(integer=3, fraction=0, message=“Invalid CVV”)
-Private String ccCVV;
+  @Digits(integer=3, fraction=0, message=“Invalid CVV”)
+  private String ccCVV;
 }
 ```
 
@@ -111,9 +110,9 @@ Private String ccCVV;
   - The first few lines of the method consult the Errors object, asking its hasErrors() method if there are any validation errors
   - If there are errors, the method concludes without processing the Taco and returns the “design” view name so that the form is redisplayed.
 
-```
+```java
 @PostMapping
-Public String processDesign(@Valid Taco design, Errors errors) {
+public String processDesign(@Valid Taco design, Errors errors) {
 	if (errors.hasErrors()) { return “design”; }
 	return “redirect:/order/current”
 }
@@ -123,13 +122,13 @@ Public String processDesign(@Valid Taco design, Errors errors) {
 
 - When a controller is simple enough that it doesn’t populate a model or process input - as is the case with a HomeController - you can declare a view controller instead - a controller that does nothing but forward the request to a view.
 
-```
+```java
 @Configuration
-Public Class WebConfig implements WebMvcConfigurer {
-@Override
-Public void addViewControllers(ViewControllerRegistry registry) {
- 	registry.addViewController(“/”).setViewName(“home”);
-  }
+public Class WebConfig implements WebMvcConfigurer {
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addViewController(“/”).setViewName(“home”);
+    }
 }
 ```
 
@@ -138,15 +137,14 @@ Public void addViewControllers(ViewControllerRegistry registry) {
 - The addViewControllers() method is given a ViewControllerRegistry that you can use to register one or more view controllers
 - Any configuration class can implement WebMvcConfigurer and override the addViewController method. For instance, you could have added the same view controller declaration to the bootstrap application class
 
-```
+```java
 @SpringBootApplication
-Public class TacoApplication implements WebMvcConfigurer {
+public class TacoApplication implements WebMvcConfigurer {
+  public static void main(String[] args) {…}
 
-Public static void main(String[] args) {…}
-
-@Override
-Public void addViewControllers(ViewControllerRegistry registry) {
- 	registry.addViewController(“/”).setViewName(“home”);
-  }
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addViewController(“/”).setViewName(“home”);
+    }
 }
 ```

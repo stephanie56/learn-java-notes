@@ -24,10 +24,10 @@ Book: Spring in Action
 
 In recent versions of Spring, a java-based configuration is more common. The following java-based configuration class is equivalent to the XML configuration:
 
-```
+```java
 @Configuration
 // the @Configuration annotation indicates to Spring that this is a configuration class that will provide beans to the Spring application context, an equivalent to a XML file
-Public class ServiceConfiguration {
+public class ServiceConfiguration {
 	@Bean // indicate that the objects they return should be added as beans in the application context
 	public InventoryService inventoryService() { return new InventoryService(); }
 
@@ -54,7 +54,7 @@ Public class ServiceConfiguration {
 
 ## Testing the application:
 
-```
+```java
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ExampleApplicationTest {

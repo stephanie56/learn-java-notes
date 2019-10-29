@@ -16,39 +16,42 @@ Book: Spring in Action
 
 ```
 @Override
-Public Ingredient findOne(String id) {
-// declare connection, SQL queries and result set
-Connection connection = null;
-PreparedStatement statement = null;
-ResultSet resultSet = null;
+public Ingredient findOne(String id) {
+  // declare connection, SQL queries and result set
+  Connection connection = null;
+  PreparedStatement statement = null;
+  ResultSet resultSet = null;
 
-Try {
-Connection = dataSource.getConnection(); // Connect to the database
-Statement = connection.prepareStatement(“select id, name, type from Ingredient”) // Add SQL query
-Statement.setString(1, id); // set SQL query id to parameter id
-resultSet = statement.executeQuery(); // perform SQL operation, get results
-Ingredient ingredient = null;
-If (resultSet.next()) {
-Ingredient = new Ingredient(
-	resultSet.getString(“id”),
-	resultSet.getString(“name”),
-	Ingredient.Type.valueOf(resultSet.getString(“type”));
-)
-return ingredient;
-} catch (SQLException e) {}
-} finally {
-// Clean up and close resultSet, statement and connection
-If (resultSet != null) {
- Try { resultSet.close();} catch(SQLException e) {}
-}
-If (statement !=null) {
-try{statement.close();} catch(SQLException e) {}
-}
-If (connection !=null) {
-try{connection.close()}catch(SQLException e){}
-}
-Return null;
-}
+  try {
+    connection = dataSource.getConnection(); // Connect to the database
+    statement = connection.prepareStatement(“select id, name, type from Ingredient”) // Add SQL query
+    statement.setString(1, id); // set SQL query id to parameter id
+    resultSet = statement.executeQuery(); // perform SQL operation, get results
+    Ingredient ingredient = null;
+    if (resultSet.next()) {
+      ingredient = new Ingredient(
+        resultSet.getString(“id”),
+        resultSet.getString(“name”),
+        Ingredient.Type.valueOf(resultSet.getString(“type”));
+      )
+      return ingredient;
+    }
+  } catch (SQLException e) {
+
+  }
+  finally {
+    // Clean up and close resultSet, statement and connection
+    if (resultSet != null) {
+      try { resultSet.close();} catch(SQLException e) {}
+    }
+    if (statement !=null) {
+      try{statement.close();} catch(SQLException e) {}
+    }
+    if (connection !=null) {
+      try{connection.close()}catch(SQLException e){}
+    }
+    return null;
+  }
 }
 ```
 

@@ -9,11 +9,13 @@
 
 ## How a controller looks like:
 
-```
+```java
 @Controller
 public class HomeController {
-@GetMapping(“/”)
-String home() {return “home”;}
+  @GetMapping(“/”)
+  String home() {
+    return “home”;
+  }
 }
 
 ```
@@ -26,19 +28,19 @@ String home() {return “home”;}
 
 - For the purpose of the home page, you will write a test that’s comparable in complexity to the homepage itself. Your test will perform an HTTP GET request for the root path “/” and expect a successful result where the view name is home and the resulting content contains the phrase “Welcome to…”
 
-```
+```java
 @RunWith(SpringRunner.class)
 @WebMvcTest
 public class HomeControllerTest {
-@Autowired private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-@Test
-public void testHomePage() throws Exception {
-mockmvc.perform(get(“/”))
-.andExpect(status().isOk())
-.andExpect(view().name(“home”))
-.andExpect(content().string(containString(“Welcome to….”)));
-}
+  @Test
+  public void testHomePage() throws Exception {
+    mockMvc.perform(get(“/”))
+    .andExpect(status().isOk())
+    .andExpect(view().name(“home”))
+    .andExpect(content().string(containString(“Welcome to….”)));
+  }
 }
 ```
 
