@@ -6,7 +6,7 @@
 
 The key that allows Java to solve both the security and the portability problems is that the output of a Java compiler is not executable code, but instead is bytecode. Translate a java program into byte code makes it easier to run a program in a wide variety of environments because only the JVM needs to be implemented for each platform. Once the run-time package exists for a given system, any java program can run on it.
 
-Java code -> Java Compiler -> Bytecode -> JVM (Java run-time system, like an interpreter) -> native code
+**Java code -> Java Compiler -> Bytecode -> JVM (Java run-time system, like an interpreter) -> native code**
 
 Just-in-time (JIT) compiler: selected portions of byte code are compiled into executable code in real time on a piece-by-piece, demand basis.
 
@@ -26,7 +26,7 @@ Ahead-of-time (AOT) compiler: ???
 ## Compiling the program
 
 - To compile a java program, execute the compiler, javac: `javac Example.java`
-- The compiler creates a file called Example.class that contains the bytecode version of the program
+- The compiler creates a file called **Example.class** that contains the bytecode version of the program
 - To actually run the program, use the Java interpreter, java: `java Example`
 
 ## Servlet VS Applet (Page 30 & 32)
@@ -72,11 +72,11 @@ Encapsulation is a programming mechanism that binds together code and the data i
 ## ABC Of `public static void main (String args[])`
 
 - All java applications begin execution by calling the main() method within the bootstrapping class
-- Public: access modifier. The main() must be declared as public, since it must be called by code outside of its class when the program is started
-- Static: allows main() to be called before an object of the class has been created (it would be called before constructor() of any objects); this is necessary because main() is called by the JVM before any objects are made
+- `Public`: access modifier. The main() must be declared as public, since it must be called by code outside of its class when the program is started
+- `Static`: allows main() to be called before an object of the class has been created (it would be called before constructor() of any objects); this is necessary because main() is called by the JVM before any objects are made
 - Void: return type of main(); tells the compiler that main() does not return a value.
-- String args[]: declares a parameter named args; this is an array of objects of type String. In this case, args receives any command-line arguments present when the program is executed
-- System.out.println: System is a predefined class that provides access to the system. Out is the output stream that is connected to the console. System.out is an object that encapsulates console output.
+- `String args[]`: declares a parameter named args; this is an array of objects of type String. In this case, **args receives any command-line arguments present when the program is executed**
+- `System.out.println`: System is a predefined class that provides access to the system. Out is the output stream that is connected to the console. **System.out is an object that encapsulates console output.**
 
 ## Primitive Data Types
 
@@ -85,5 +85,5 @@ Encapsulation is a programming mechanism that binds together code and the data i
 - If an int is assigned to a double, there is no loss on the value of the int; however, if a double is assigned to an int type, the value of the double is loss (e.g. from 1.4 to 1)
 - The Why:
 
-1. Speed: integer arithmetic is faster than floating-point calculations, so, if you don’t need fractional values, then you don’t need to incur the overhead associated with types float or double
-2. Space: the amount of memory required for one type of data might be less than that required for another. By supplying different types, Java enables you to make best use of system resource
+1. **Speed**: integer arithmetic is faster than floating-point calculations, so, if you don’t need fractional values, then you don’t need to incur the overhead associated with types float or double
+2. **Space**: the amount of memory required for one type of data might be less than that required for another. By supplying different types, Java enables you to make best use of system resource
